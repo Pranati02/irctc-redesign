@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IRCTC — Indian Railway Booking</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <div class="brand-icon">🚂</div>
+        <div class="brand-text">
+          <span class="brand-irctc">IRCTC</span>
+          <span class="brand-sub">Indian Railway Catering &amp; Tourism</span>
+        </div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#" class="nav-link active">Train Tickets</a></li>
+        <li><a href="#" class="nav-link">PNR Status</a></li>
+        <li><a href="#" class="nav-link">Trains</a></li>
+        <li><a href="#" class="nav-link">Tourism</a></li>
+        <li><a href="#" class="nav-link">Hotels</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="#" class="btn btn-ghost">Login</a>
+        <a href="#" class="btn btn-primary">Register</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-track"></div>
+      <div class="hero-dots"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">India's #1 Rail Booking Platform</p>
+      <h1 class="hero-title">Book Train Tickets<br /><span class="hero-accent">Simply & Fast</span></h1>
+      <p class="hero-sub">Over 1 crore tickets booked daily. Your journey, your way.</p>
+    </div>
+  </section>
+
+  <!-- ===== BOOKING CARD ===== -->
+  <section class="booking-section">
+    <div class="booking-card">
+      <!-- Tab switcher -->
+      <div class="booking-tabs">
+        <button class="tab active" data-tab="book">🎫 Book Ticket</button>
+        <button class="tab" data-tab="pnr">📋 PNR Status</button>
+        <button class="tab" data-tab="trains">🚆 Train Search</button>
+        <button class="tab" data-tab="cancel">❌ Cancel Ticket</button>
+      </div>
+
+      <!-- Book Ticket Tab -->
+      <div class="tab-content active" id="tab-book">
+        <div class="journey-type">
+          <label class="radio-pill">
+            <input type="radio" name="journey" value="one-way" checked />
+            <span>One Way</span>
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="journey" value="round-trip" />
+            <span>Round Trip</span>
+          </label>
+        </div>
+
+        <div class="station-row">
+          <div class="station-field">
+            <label class="field-label">From</label>
+            <div class="station-input-wrap">
+              <span class="station-icon">📍</span>
+              <input type="text" class="station-input" id="from-station" placeholder="Enter city or station" value="New Delhi (NDLS)" autocomplete="off" />
+            </div>
+          </div>
+          <button class="swap-btn" id="swapBtn" title="Swap stations">⇄</button>
+          <div class="station-field">
+            <label class="field-label">To</label>
+            <div class="station-input-wrap">
+              <span class="station-icon">🏁</span>
+              <input type="text" class="station-input" id="to-station" placeholder="Enter city or station" value="Mumbai Central (MMCT)" autocomplete="off" />
+            </div>
+          </div>
+        </div>
+
+        <div class="options-row">
+          <div class="field-group">
+            <label class="field-label">Date of Journey</label>
+            <div class="input-wrap">
+              <span class="input-icon">📅</span>
+              <input type="date" class="form-input" id="journey-date" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Class</label>
+            <div class="input-wrap">
+              <span class="input-icon">🪑</span>
+              <select class="form-input" id="travel-class">
+                <option value="">All Classes</option>
+                <option value="1A">1A – First AC</option>
+                <option value="2A">2A – Second AC</option>
+                <option value="3A">3A – Third AC</option>
+                <option value="SL">SL – Sleeper</option>
+                <option value="CC">CC – Chair Car</option>
+                <option value="2S">2S – Second Sitting</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Quota</label>
+            <div class="input-wrap">
+              <span class="input-icon">🎟️</span>
+              <select class="form-input" id="quota">
+                <option value="GN">General</option>
+                <option value="TQ">Tatkal</option>
+                <option value="PT">Premium Tatkal</option>
+                <option value="LD">Ladies</option>
+                <option value="SS">Senior Citizen</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-footer">
+          <label class="checkbox-label">
+            <input type="checkbox" id="flexible" />
+            <span class="checkmark"></span>
+            Search flexible date (±3 days)
+          </label>
+          <button class="btn btn-search" onclick="handleSearch()">
+            <span>Search Trains</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- PNR Status Tab -->
+      <div class="tab-content" id="tab-pnr">
+        <div class="pnr-container">
+          <div class="pnr-icon">🔍</div>
+          <h3 class="pnr-heading">Check Your PNR Status</h3>
+          <p class="pnr-sub">Enter your 10-digit PNR number to get live booking status</p>
+          <div class="pnr-input-row">
+            <input type="text" class="pnr-input" maxlength="10" placeholder="e.g. 4521836790" oninput="this.value=this.value.replace(/\D/g,'')" />
+            <button class="btn btn-search">Check Status</button>
+          </div>
+          <p class="pnr-tip">💡 PNR number is on the top-left of your ticket</p>
+        </div>
+      </div>
+
+      <!-- Train Search Tab -->
+      <div class="tab-content" id="tab-trains">
+        <div class="train-search-grid">
+          <div class="field-group">
+            <label class="field-label">Search by Train Name / Number</label>
+            <div class="input-wrap">
+              <span class="input-icon">🚆</span>
+              <input type="text" class="form-input" placeholder="e.g. Rajdhani or 12951" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">From Station</label>
+            <div class="input-wrap">
+              <span class="input-icon">📍</span>
+              <input type="text" class="form-input" placeholder="Origin station" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">To Station</label>
+            <div class="input-wrap">
+              <span class="input-icon">🏁</span>
+              <input type="text" class="form-input" placeholder="Destination station" />
+            </div>
+          </div>
+          <button class="btn btn-search full-width">Find Trains</button>
+        </div>
+      </div>
+
+      <!-- Cancel Ticket Tab -->
+      <div class="tab-content" id="tab-cancel">
+        <div class="pnr-container">
+          <div class="pnr-icon">❌</div>
+          <h3 class="pnr-heading">Cancel Your Ticket</h3>
+          <p class="pnr-sub">Enter your PNR to initiate cancellation. Please login first.</p>
+          <div class="pnr-input-row">
+            <input type="text" class="pnr-input" maxlength="10" placeholder="10-digit PNR number" />
+            <button class="btn btn-danger">Cancel Ticket</button>
+          </div>
+          <div class="cancel-note">
+            <span>⚠️</span>
+            <span>Cancellation charges apply as per Railway rules. Tatkal tickets have different refund policies.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STATS ===== -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">1 Cr+</div>
+        <div class="stat-label">Tickets Booked Daily</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">13,000+</div>
+        <div class="stat-label">Trains Running</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">7,325+</div>
+        <div class="stat-label">Railway Stations</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">67,000 km</div>
+        <div class="stat-label">Rail Network</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== POPULAR ROUTES ===== -->
+  <section class="routes-section">
+    <div class="section-header">
+      <h2 class="section-title">Popular Routes</h2>
+      <p class="section-sub">Most booked train journeys across India</p>
+    </div>
+    <div class="routes-grid">
+      <div class="route-card" onclick="setRoute('New Delhi (NDLS)', 'Mumbai Central (MMCT)')">
+        <div class="route-header">
+          <span class="route-tag">Rajdhani</span>
+          <span class="route-duration">⏱ 15h 35m</span>
+        </div>
+        <div class="route-cities">
+          <span>New Delhi</span>
+          <div class="route-line"><span class="route-dot"></span><div class="route-track-line"></div><span class="route-dot"></span></div>
+          <span>Mumbai</span>
+        </div>
+        <div class="route-footer">
+          <span class="route-price">From ₹1,540</span>
+          <span class="route-avail avail-good">Available</span>
+        </div>
+      </div>
+
+      <div class="route-card" onclick="setRoute('New Delhi (NDLS)', 'Howrah Jn (HWH)')">
+        <div class="route-header">
+          <span class="route-tag">Duronto</span>
+          <span class="route-duration">⏱ 17h 05m</span>
+        </div>
+        <div class="route-cities">
+          <span>New Delhi</span>
+          <div class="route-line"><span class="route-dot"></span><div class="route-track-line"></div><span class="route-dot"></span></div>
+          <span>Kolkata</span>
+        </div>
+        <div class="route-footer">
+          <span class="route-price">From ₹1,120</span>
+          <span class="route-avail avail-few">Few Left</span>
+        </div>
+      </div>
+
+      <div class="route-card" onclick="setRoute('Chennai Central (MAS)', 'Bengaluru City (SBC)')">
+        <div class="route-header">
+          <span class="route-tag">Shatabdi</span>
+          <span class="route-duration">⏱ 5h 30m</span>
+        </div>
+        <div class="route-cities">
+          <span>Chennai</span>
+          <div class="route-line"><span class="route-dot"></span><div class="route-track-line"></div><span class="route-dot"></span></div>
+          <span>Bengaluru</span>
+        </div>
+        <div class="route-footer">
+          <span class="route-price">From ₹680</span>
+          <span class="route-avail avail-good">Available</span>
+        </div>
+      </div>
+
+      <div class="route-card" onclick="setRoute('Mumbai Central (MMCT)', 'Ahmedabad Jn (ADI)')">
+        <div class="route-header">
+          <span class="route-tag">Vande Bharat</span>
+          <span class="route-duration">⏱ 5h 45m</span>
+        </div>
+        <div class="route-cities">
+          <span>Mumbai</span>
+          <div class="route-line"><span class="route-dot"></span><div class="route-track-line"></div><span class="route-dot"></span></div>
+          <span>Ahmedabad</span>
+        </div>
+        <div class="route-footer">
+          <span class="route-price">From ₹860</span>
+          <span class="route-avail avail-wl">Waitlist</span>
+        </div>
+      </div>
+
+      <div class="route-card" onclick="setRoute('Hyderabad (HYB)', 'New Delhi (NDLS)')">
+        <div class="route-header">
+          <span class="route-tag">Rajdhani</span>
+          <span class="route-duration">⏱ 22h 30m</span>
+        </div>
+        <div class="route-cities">
+          <span>Hyderabad</span>
+          <div class="route-line"><span class="route-dot"></span><div class="route-track-line"></div><span class="route-dot"></span></div>
+          <span>New Delhi</span>
+        </div>
+        <div class="route-footer">
+          <span class="route-price">From ₹1,890</span>
+          <span class="route-avail avail-good">Available</span>
+        </div>
+      </div>
+
+      <div class="route-card" onclick="setRoute('Pune Jn (PUNE)', 'Goa (MAO)')">
+        <div class="route-header">
+          <span class="route-tag">Express</span>
+          <span class="route-duration">⏱ 11h 15m</span>
+        </div>
+        <div class="route-cities">
+          <span>Pune</span>
+          <div class="route-line"><span class="route-dot"></span><div class="route-track-line"></div><span class="route-dot"></span></div>
+          <span>Goa</span>
+        </div>
+        <div class="route-footer">
+          <span class="route-price">From ₹440</span>
+          <span class="route-avail avail-good">Available</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== QUICK SERVICES ===== -->
+  <section class="services-section">
+    <div class="section-header">
+      <h2 class="section-title">Quick Services</h2>
+      <p class="section-sub">Everything you need in one place</p>
+    </div>
+    <div class="services-grid">
+      <a href="#" class="service-card">
+        <div class="service-icon">📱</div>
+        <div class="service-name">IRCTC App</div>
+        <div class="service-desc">Download mobile app</div>
+      </a>
+      <a href="#" class="service-card">
+        <div class="service-icon">🍽️</div>
+        <div class="service-name">e-Catering</div>
+        <div class="service-desc">Order food on train</div>
+      </a>
+      <a href="#" class="service-card">
+        <div class="service-icon">🏨</div>
+        <div class="service-name">Retiring Rooms</div>
+        <div class="service-desc">Book at stations</div>
+      </a>
+      <a href="#" class="service-card">
+        <div class="service-icon">🚕</div>
+        <div class="service-name">Rail Taxi</div>
+        <div class="service-desc">Cab at destination</div>
+      </a>
+      <a href="#" class="service-card">
+        <div class="service-icon">♿</div>
+        <div class="service-name">Divyaang</div>
+        <div class="service-desc">Concession booking</div>
+      </a>
+      <a href="#" class="service-card">
+        <div class="service-icon">💳</div>
+        <div class="service-name">IRCTC Wallet</div>
+        <div class="service-desc">Faster payments</div>
+      </a>
+      <a href="#" class="service-card">
+        <div class="service-icon">🏔️</div>
+        <div class="service-name">Tour Packages</div>
+        <div class="service-desc">Holiday deals</div>
+      </a>
+      <a href="#" class="service-card">
+        <div class="service-icon">📦</div>
+        <div class="service-name">Parcel Service</div>
+        <div class="service-desc">Send cargo by rail</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== ANNOUNCEMENT TICKER ===== -->
+  <div class="ticker-bar">
+    <span class="ticker-label">📢 Updates</span>
+    <div class="ticker-track">
+      <div class="ticker-content">
+        <span>Special trains announced for summer season 2025 — </span>
+        <span>Book Tatkal tickets from 10 AM one day prior — </span>
+        <span>IRCTC Prime Membership: Skip queues and get instant confirmation — </span>
+        <span>E-ticket mandatory: SMS ticket accepted on trains — </span>
+        <span>New Vande Bharat services launched on 12 new routes — </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">🚂 IRCTC</div>
+        <p class="footer-tagline">Connecting India since 1853.<br />Serving every Indian, every day.</p>
+        <div class="footer-badges">
+          <span class="badge">Govt. of India</span>
+          <span class="badge">Ministry of Railways</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Book</h4>
+        <ul class="footer-links">
+          <li><a href="#">Train Tickets</a></li>
+          <li><a href="#">Bus Tickets</a></li>
+          <li><a href="#">Flight Tickets</a></li>
+          <li><a href="#">Hotels</a></li>
+          <li><a href="#">Tour Packages</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Help</h4>
+        <ul class="footer-links">
+          <li><a href="#">PNR Status</a></li>
+          <li><a href="#">Refund Rules</a></li>
+          <li><a href="#">Cancellation Policy</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Connect</h4>
+        <ul class="footer-links">
+          <li><a href="#">📘 Facebook</a></li>
+          <li><a href="#">🐦 Twitter</a></li>
+          <li><a href="#">📸 Instagram</a></li>
+          <li><a href="#">📺 YouTube</a></li>
+        </ul>
+        <p class="footer-helpline">Helpline: <strong>139</strong><br />(24×7 Railway Enquiry)</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Indian Railway Catering and Tourism Corporation Ltd. — A Government of India Enterprise</span>
+      <span>UI Redesign Concept — Portfolio Project</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
